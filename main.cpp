@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 #include <iostream>
+#include <climits>
 
 #include "Planet.h"
 #include "Sun.h"
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
     
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(60.0, (float)w/(float)h, 0.2, 2147483647.0);
+    gluPerspective(60.0, (float)w/(float)h, 0.2, INT_MAX);
     glMatrixMode(GL_MODELVIEW);
     gluLookAt(camera.eyeX, camera.eyeY, camera.eyeZ, camera.centerX, camera.centerY, camera.centerZ, 0, 1, 0);
 
