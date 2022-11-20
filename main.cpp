@@ -11,6 +11,7 @@
 #include "Orbits.h"
 #include "SpaceShip.h"
 
+
 const GLint w = 1280, h = 720;
 
 void initValues()
@@ -33,7 +34,6 @@ void initValues()
 
 int main(int argc, char **argv)
 {
-
     sf::ContextSettings settings;
     settings.depthBits = 24;
     settings.stencilBits = 8;
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     sf::Window window(sf::VideoMode(w, h), "Trabalho 2 de Computacao Grafica", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
 
-  
+    initValues();
 
     Sun sun(100, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
     Planet earth(2.4, 0.6, 700, 30, "textures/earth.jpg");
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     orbits.add(earth.getOrbitValue());
     orbits.add(mars.getOrbitValue());
 
-    SpaceShip ship(glm::vec3{1000, 100, 1}, Size{w, h});
+    SpaceShip ship(glm::vec3(1000, 100, 0.0), Size(w, h));
 
     while (window.isOpen())
     {
@@ -79,7 +79,6 @@ int main(int argc, char **argv)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
         ship.show();
 
         sun.illuminate();
@@ -87,7 +86,6 @@ int main(int argc, char **argv)
         mars.show();
         orbits.show();
 
-        
         window.display();
     }
 

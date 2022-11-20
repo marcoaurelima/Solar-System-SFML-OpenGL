@@ -3,13 +3,14 @@
 
 #pragma once
 
+#include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <climits>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-
+#include <SFML/Window.hpp>
 
 struct Size
 {
@@ -28,6 +29,7 @@ public:
     void show();
 private:
     glm::vec3 position;
+    glm::vec3 at;
     Size windowSize;
 };
 

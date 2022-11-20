@@ -15,6 +15,32 @@ void SpaceShip::show()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glm::mat4 matrizCamera = glm::lookAt(position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    glm::mat4 matrizCamera = glm::lookAt(position, at, glm::vec3(0, 1, 0));
     glMultMatrixf(glm::value_ptr(matrizCamera));
+
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        position.x -= 5;
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        position.x += 5;
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        position.z -= 5;
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        position.z += 5;
+    }
+
+    sf::Vector2i mousepos = sf::Mouse::getPosition();
+
+    //std::cout << "mousepos: " << mousepos.x << " - " << mousepos.y << std::endl;
+
 }
