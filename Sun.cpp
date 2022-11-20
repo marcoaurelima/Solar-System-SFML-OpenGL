@@ -52,6 +52,7 @@ void Sun::illuminate()
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, false);
     glEnable(GL_LIGHT0);
     glDisable(GL_LIGHTING);
+    
     glPushMatrix();
     glRotatef(0, 1.0, 0.0, 0.0);
     glRotatef(0, 0.0, 1.0, 0.0);
