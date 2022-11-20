@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     settings.majorVersion = 3;
     settings.minorVersion = 0;
 
-    sf::Window window(sf::VideoMode(w, h), "Title", sf::Style::Default, settings);
+    sf::Window window(sf::VideoMode(w, h), "Trabalho 2 de Computacao Grafica", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
 
     initValues();
