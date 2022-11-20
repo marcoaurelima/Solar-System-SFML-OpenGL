@@ -3,30 +3,23 @@
 #include <SFML/OpenGL.hpp>
 #include <iostream>
 #include <climits>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 #include "Planet.h"
 #include "Sun.h"
 #include "Orbits.h"
-
-
-struct{
-	float eyeX;
-	float eyeY;
-	float eyeZ;
-	float centerX;
-	float centerY;
-	float centerZ;
-} camera {1000, 100, 0, 0, 0, 0};
+#include "SpaceShip.h"
 
 const GLint w = 1280, h = 720;
 
 void initValues()
 {
-    glClearColor(0.0,0.0,0.0,0.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
+
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
@@ -35,9 +28,8 @@ void initValues()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glViewport (0, 0, w, h);
+    glViewport(0, 0, w, h);
 }
-
 
 int main(int argc, char **argv)
 {
@@ -52,14 +44,7 @@ int main(int argc, char **argv)
     sf::Window window(sf::VideoMode(w, h), "Trabalho 2 de Computacao Grafica", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
 
-    initValues();
-    
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(60.0, (float)w/(float)h, 0.2, INT_MAX);
-    glMatrixMode(GL_MODELVIEW);
-    gluLookAt(camera.eyeX, camera.eyeY, camera.eyeZ, camera.centerX, camera.centerY, camera.centerZ, 0, 1, 0);
-
+  
 
     Sun sun(100, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
     Planet earth(2.4, 0.6, 700, 30, "textures/earth.jpg");
@@ -69,6 +54,7 @@ int main(int argc, char **argv)
     orbits.add(earth.getOrbitValue());
     orbits.add(mars.getOrbitValue());
 
+    SpaceShip ship(glm::vec3{1000, 100, 1}, Size{w, h});
 
     while (window.isOpen())
     {
@@ -92,12 +78,16 @@ int main(int argc, char **argv)
         }
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+
+
+        ship.show();
+
         sun.illuminate();
         earth.show();
         mars.show();
         orbits.show();
 
+        
         window.display();
     }
 
