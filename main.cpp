@@ -88,7 +88,6 @@ int main(int argc, char **argv)
              else if (event.type == sf::Event::Resized)
             {
                 glViewport(0, 0, event.size.width, event.size.height);
-                glViewport (0, 0, w, h);
             }
         }
 
