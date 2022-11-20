@@ -54,8 +54,6 @@ void Sun::illuminate()
     glDisable(GL_LIGHTING);
     
     glPushMatrix();
-    glRotatef(0, 1.0, 0.0, 0.0);
-    glRotatef(0, 0.0, 1.0, 0.0);
     glLightfv(GL_LIGHT0, GL_POSITION, positionalLight);
     glTranslatef(positionalLight[0], positionalLight[1], positionalLight[2]);
     glColor3f(lp.diffuse, lp.diffuse, lp.diffuse);
