@@ -16,6 +16,7 @@ public:
     Planet(GLfloat rotationVelocity, GLfloat translationVelocity, GLfloat orbitRadius, GLdouble size, std::string texturePath);
     ~Planet();
     
+    GLdouble getOrbitValue();
     void show();
 
 private:

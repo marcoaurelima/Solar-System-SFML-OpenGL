@@ -55,3 +55,8 @@ void Planet::show()
 
     glDisable(GL_TEXTURE_2D);
 }
+
+GLdouble Planet::getOrbitValue()
+{
+    return (GLdouble) orbitRadius;
+}
