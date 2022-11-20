@@ -7,7 +7,7 @@ SpaceShip::~SpaceShip()
 {
 }
 
-void SpaceShip::show()
+void SpaceShip::show(sf::Window& window)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -39,8 +39,9 @@ void SpaceShip::show()
         position.z += 5;
     }
 
-    sf::Vector2i mousepos = sf::Mouse::getPosition();
 
-    //std::cout << "mousepos: " << mousepos.x << " - " << mousepos.y << std::endl;
+    sf::Vector2i mousepos = sf::Mouse::getPosition(window);
+
+    std::cout << "mousepos: " << mousepos.x << " - " << mousepos.y << std::endl;
 
 }

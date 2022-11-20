@@ -26,7 +26,7 @@ public:
     SpaceShip(glm::vec3 initialPosition, Size windowSize);
     ~SpaceShip();
 
-    void show();
+    void show(sf::Window& window);
 private:
     glm::vec3 position;
     glm::vec3 at;
