@@ -1,14 +1,14 @@
 #include "Sun.h"
 
 
-Sun::Sun(GLdouble size, std::string texturePath, LightParameters lp)
+Sun::Sun(GLdouble size, LightParameters lp, std::string texturePath)
 {
     
-    ambientLight = new GLfloat[4]{0.0, 0.0, 0.0, 1.0};
-    diffuseLight = new GLfloat[4]{lp.diffuse, lp.diffuse, lp.diffuse, 1.0};
-    specularlight = new GLfloat[4]{lp.specular, lp.specular, lp.specular, 1.0};
+    ambientLight =    new GLfloat[4]{0.0, 0.0, 0.0, 1.0};
+    diffuseLight =    new GLfloat[4]{lp.diffuse, lp.diffuse, lp.diffuse, 1.0};
+    specularlight =   new GLfloat[4]{lp.specular, lp.specular, lp.specular, 1.0};
     positionalLight = new GLfloat[4]{0.0, 0.0, 3.0, lp.positional};
-    globalLight = new GLfloat[4]{lp.global, lp.global, lp.global, 1.0};
+    globalLight =     new GLfloat[4]{lp.global, lp.global, lp.global, 1.0};
 
     this->lp = lp;
     this->size = size;
@@ -33,12 +33,12 @@ Sun::~Sun()
 
 void Sun::createSphere(GLdouble radius)
 {
-    GLUquadric *quadObj = gluNewQuadric();
-    gluQuadricDrawStyle(quadObj, GLU_FILL);
-    gluQuadricNormals(quadObj, GLU_SMOOTH);
-    gluQuadricTexture(quadObj, GL_TRUE);
-    gluSphere(quadObj, radius, QTD_FACES, QTD_FACES);
-    gluDeleteQuadric(quadObj);
+    GLUquadric *quadric = gluNewQuadric();
+    gluQuadricDrawStyle(quadric, GLU_FILL);
+    gluQuadricNormals(quadric, GLU_SMOOTH);
+    gluQuadricTexture(quadric, GL_TRUE);
+    gluSphere(quadric, radius, QTD_FACES, QTD_FACES);
+    gluDeleteQuadric(quadric);
 }
 
 void Sun::illuminate()

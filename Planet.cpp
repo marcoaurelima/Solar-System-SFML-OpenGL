@@ -28,12 +28,12 @@ Planet::~Planet()
 
 void Planet::createSphere(GLdouble radius)
 {
-    GLUquadric* quadObj = gluNewQuadric();
-    gluQuadricDrawStyle(quadObj, GLU_FILL);
-    gluQuadricNormals(quadObj, GLU_SMOOTH);
-    gluQuadricTexture(quadObj, GL_TRUE);
-    gluSphere(quadObj, radius, QTD_FACES, QTD_FACES);
-    gluDeleteQuadric(quadObj);
+    GLUquadric* quadric = gluNewQuadric();
+    gluQuadricDrawStyle(quadric, GLU_FILL);
+    gluQuadricNormals(quadric, GLU_SMOOTH);
+    gluQuadricTexture(quadric, GL_TRUE);
+    gluSphere(quadric, radius, QTD_FACES, QTD_FACES);
+    gluDeleteQuadric(quadric);
 }
 
 

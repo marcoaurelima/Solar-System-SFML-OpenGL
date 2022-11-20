@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 
 
     Planet planet(2.4, 0.6, 700, 30, "textures/earth.jpg");
-    Sun sun(100, "textures/sun.jpg", LightParameters{1.0, 0.0, 1.0, 0.2});
+    Sun sun(100, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
 
 
     while (window.isOpen())

@@ -10,11 +10,6 @@
 
 #define QTD_FACES 200
 
-/*const float DIFUSE = 1;
-const float SPECULAR = 0;
-const float POSITIONAL = 1;
-const float GLOBAL = 0.2;
-*/
 struct LightParameters
 {
     LightParameters(){}
@@ -30,7 +25,7 @@ struct LightParameters
 class Sun
 {
 public:
-    Sun(GLdouble size, std::string texturePath, LightParameters lp);
+    Sun(GLdouble size, LightParameters lp, std::string texturePath);
     ~Sun();
 
     void illuminate();
