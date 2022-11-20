@@ -60,11 +60,13 @@ int main(int argc, char **argv)
     gluLookAt(camera.eyeX, camera.eyeY, camera.eyeZ, camera.centerX, camera.centerY, camera.centerZ, 0, 1, 0);
 
 
-    Planet earth(2.4, 0.6, 700, 30, "textures/earth.jpg");
     Sun sun(100, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
+    Planet earth(2.4, 0.6, 700, 30, "textures/earth.jpg");
+    Planet mars(2.4, 0.7, 800, 30, "textures/mars.jpg");
 
     Orbits orbits;
     orbits.add(earth.getOrbitValue());
+    orbits.add(mars.getOrbitValue());
 
 
     while (window.isOpen())
@@ -93,6 +95,7 @@ int main(int argc, char **argv)
         
         sun.illuminate();
         earth.show();
+        mars.show();
         orbits.show();
 
         window.display();

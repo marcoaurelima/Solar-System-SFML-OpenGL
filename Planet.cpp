@@ -49,7 +49,7 @@ void Planet::show()
     glRotatef(translation, 0, 1, 0);
     glTranslatef(orbitRadius, 0.0, 0);
     glRotatef(rotation, 0, 1, 0);
-    glRotatef(rotation, 1, 0, 0);
+    glRotatef(-90, 1, 0, 0); // Calibração para os polos ficarem em cima
     createSphere(size);
     glPopMatrix();
 
