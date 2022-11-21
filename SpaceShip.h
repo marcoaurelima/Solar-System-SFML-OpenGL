@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <climits>
@@ -24,13 +25,16 @@ class SpaceShip
 {
 public:
     SpaceShip(glm::vec3 initialPosition, Size windowSize);
-    ~SpaceShip();
+    ~SpaceShip();   
 
     void show(sf::Window& window);
 private:
     glm::vec3 position;
     glm::vec3 at;
     Size windowSize;
+
+    GLfloat cameraAngleX {};
+    GLfloat cameraAngleY {};
 };
 
 #endif
