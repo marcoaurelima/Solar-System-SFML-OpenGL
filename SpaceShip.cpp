@@ -51,7 +51,7 @@ void SpaceShip::show(sf::Window &window)
     int centerY = window.getSize().y/2;
 
 
-    cameraAngleX = ((GLfloat) centerX - mousepos.x)/2;
-    cameraAngleY = ((GLfloat) centerY - mousepos.y)/1;
+    cameraAngleX = ((GLfloat) centerX - mousepos.x)/2.5;
+    cameraAngleY = ((GLfloat) centerY - mousepos.y)/1.5;
     
 }
