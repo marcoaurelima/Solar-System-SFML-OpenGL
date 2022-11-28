@@ -28,13 +28,20 @@ public:
     ~SpaceShip();   
 
     void show(sf::Window& window);
+    void moveCameraView(sf::Vector2i mousePos);
+    void moveCameraPosition();
 private:
-    glm::vec3 position;
-    glm::vec3 at;
+    glm::vec3 camPosition;
+    glm::vec3 camAt;
+    glm::vec3 camUp = glm::vec3(0, 1, 0);
     Size windowSize;
 
-    GLfloat cameraAngleX {};
-    GLfloat cameraAngleY {};
+    float sensibility = 0.1f;
+    bool firstMouse = true;
+    float angleX   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+    float angleY =  0.0f;
+    float lastX =  800.0f / 2.0;
+    float lastY =  600.0 / 2.0;
 };
 
 #endif
