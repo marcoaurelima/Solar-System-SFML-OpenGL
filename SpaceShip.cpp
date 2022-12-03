@@ -1,5 +1,9 @@
 #include "SpaceShip.h"
 
+const float MIN_TOLERANCE_JOYSTICK_R = 12;
+const float MIN_TOLERANCE_JOYSTICK_L = -10;
+const float MAX_TOLERANCE_JOYSTICK_L = 10;
+
 SpaceShip::SpaceShip(glm::vec3 initialPosition, Size windowSize)
     : camPosition(initialPosition), windowSize(windowSize) {}
 
@@ -46,6 +50,12 @@ void SpaceShip::moveCameraView(sf::Vector2i mousePos)
 }
 
 void SpaceShip::handleKeyboardInput(){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
+        this->velocity += 1.5;
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+        this->velocity -= 1.5;
+    }
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         camPosition += velocity * camAt;
@@ -71,21 +81,51 @@ void SpaceShip::handleJoystickInput(){
     float x = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
     float y = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
     float u = sf::Joystick::getAxisPosition(0, sf::Joystick::U);
-    float v = sf::Joystick::getAxisPosition(0, sf::Joystick::V);
-    std::cout << "x: " << x << " y: " << y << std::endl;
-    std::cout << "u: " << u << " v: " << v << std::endl;
+    float v = sf::Joystick::getAxisPosition(0, sf::Joystick::V) * -1;
 
-    //camPosition += glm::vec3(y, x, 0);
-    camAt += glm::vec3(u*100,v*100, 1);
+    if (u < MIN_TOLERANCE_JOYSTICK_R && u > 0)
+        u = 0;
+    if(v < MIN_TOLERANCE_JOYSTICK_R && v > 0)
+        v = 0;
+
+    if(u != 0 && v != 0){
+        angleX += u * sensibility;
+        angleY += v * sensibility;
+
+        glm::vec3 front;
+        front.x = (float)(cos(glm::radians(angleX)) * cos(glm::radians(angleY)));
+        front.y = (float)(sin(glm::radians(angleY)));
+        front.z = (float)(sin(glm::radians(angleX)) * cos(glm::radians(angleY)));
+        camAt = glm::normalize(front);
+    }
+
+    std::cout << y << std::endl;
+    if(y < MIN_TOLERANCE_JOYSTICK_L){
+        camPosition += velocity * camAt;
+    } else if(y > MAX_TOLERANCE_JOYSTICK_L){
+        camPosition -= velocity * camAt;
+    }
+
+    if (x < MIN_TOLERANCE_JOYSTICK_L)
+    {
+        camPosition -= glm::normalize(glm::cross(camAt, camUp)) * velocity;
+    }else if(x > MAX_TOLERANCE_JOYSTICK_L){
+        camPosition += glm::normalize(glm::cross(camAt, camUp)) * velocity;
+    }
 }
 
-void SpaceShip::moveCameraPosition() {
+void SpaceShip::moveCameraPosition(sf::Vector2i mousePos) {
     if (sf::Joystick::isConnected(0))
     {
-        std::cout << "joystick is connected" << std::endl;
-        handleJoystickInput();
+        this->handleJoystickInput();
+        if(sf::Joystick::isButtonPressed(0, 0)){
+            this->velocity += 1.5;
+        } else if(sf::Joystick::isButtonPressed(0, 1)){
+            this->velocity -= 1.5;
+        }
     } else {
         handleKeyboardInput();
+        this->moveCameraView(mousePos);
     }
 
 }
@@ -96,8 +136,7 @@ glm::vec3 SpaceShip::getCamPosition(){
 
 void SpaceShip::show(sf::Window &window)
 {
-    this->moveCameraPosition();
-    this->moveCameraView(sf::Mouse::getPosition(window));
+    this->moveCameraPosition(sf::Mouse::getPosition(window));
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

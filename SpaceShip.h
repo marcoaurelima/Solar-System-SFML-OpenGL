@@ -14,8 +14,6 @@
 
 #include <SFML/Window.hpp>
 
-#define QTD_FACES 200
-
 struct Size
 {
     Size(GLfloat w, GLfloat h)
@@ -32,7 +30,7 @@ public:
 
     void show(sf::Window& window);
     void moveCameraView(sf::Vector2i mousePos);
-    void moveCameraPosition();
+    void moveCameraPosition(sf::Vector2i mousePos);
     void handleKeyboardInput();
     void handleJoystickInput();
     glm::vec3 getCamPosition();
@@ -42,7 +40,6 @@ private:
     glm::vec3 camUp = glm::vec3(0, 1, 0);
     Size windowSize;
     float velocity = 25;
-    GLuint texture {};
 
     float sensibility = 0.1f;
     bool firstMouse = true;
