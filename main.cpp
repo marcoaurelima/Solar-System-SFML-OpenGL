@@ -86,7 +86,7 @@ int main(int argc, char **argv)
                   << SOIL_last_result() << "\n";
     }
 
-    Sun sun(1000, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
+    Sun sun(500, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
 
     Planet mercury(0.011, (2.500*k), 600 * distance, 4.879, "textures/mercury.jpg");
     Planet venus(0.006, (0.9836*k), 652* distance, 12.104, "textures/venus.jpg");

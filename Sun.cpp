@@ -1,9 +1,7 @@
 #include "Sun.h"
 
-
 Sun::Sun(GLdouble size, LightParameters lp, std::string texturePath)
 {
-    
     ambientLight =    new GLfloat[4]{0.0, 0.0, 0.0, 1.0};
     diffuseLight =    new GLfloat[4]{lp.diffuse, lp.diffuse, lp.diffuse, 1.0};
     specularlight =   new GLfloat[4]{lp.specular, lp.specular, lp.specular, 1.0};
@@ -13,37 +11,17 @@ Sun::Sun(GLdouble size, LightParameters lp, std::string texturePath)
     this->lp = lp;
     this->size = size;
 
-    // Fazer leitura da textura
-    texture = SOIL_load_OGL_texture(
-        texturePath.c_str(),
-        SOIL_LOAD_AUTO,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_INVERT_Y);
-
-    if (texture == 0)
-    {
-        std::cout << "Erro ao carregar a textura: " << texturePath << "\n"
-                  << SOIL_last_result() << "\n";
-    }
+    sphere.loadFromFile("models/esfera.obj");
+    sphere.loadTextureFile("textures/sun.jpg");
 }
 
 Sun::~Sun()
 {
 }
 
-void Sun::createSphere(GLdouble radius)
-{
-    GLUquadric *quadric = gluNewQuadric();
-    gluQuadricDrawStyle(quadric, GLU_FILL);
-    gluQuadricNormals(quadric, GLU_SMOOTH);
-    gluQuadricTexture(quadric, GL_TRUE);
-    gluSphere(quadric, radius, QTD_FACES, QTD_FACES);
-    gluDeleteQuadric(quadric);
-}
 
 void Sun::illuminate()
 {
-    
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularlight);
@@ -59,12 +37,8 @@ void Sun::illuminate()
     glColor3f(lp.diffuse, lp.diffuse, lp.diffuse);
 
     // Renderizar o sol
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    createSphere(size);
-    glDisable(GL_TEXTURE_2D);
-
-    glPopMatrix();
+    glScalef(size,size,size);
+    sphere.show();
 
     glEnable(GL_LIGHTING);
 }

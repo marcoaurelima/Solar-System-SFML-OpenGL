@@ -6,9 +6,11 @@
 #include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SOIL/SOIL.h>
+#include "Object.h"
 
-#define QTD_FACES 200
+// #include <SOIL/SOIL.h>
+
+// #define QTD_FACES 200
 
 struct LightParameters
 {
@@ -32,8 +34,6 @@ public:
 
 private:
     GLdouble size{};
-    GLuint texture{};
-    void createSphere(GLdouble radius);
 
     LightParameters lp;
     
@@ -42,6 +42,8 @@ private:
     GLfloat* specularlight;
     GLfloat* positionalLight;
     GLfloat* globalLight;
+
+    Object sphere;
 };
 
 #endif
