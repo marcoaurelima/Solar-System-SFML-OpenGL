@@ -162,7 +162,6 @@ void Object::show()
             index = faces[i][j].vt - 1;
             x = textures[index][0];
             y = textures[index][1];
-            //z = textures[index][2];
             glTexCoord2f(x, y);
             
             index = faces[i][j].v - 1;
