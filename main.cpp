@@ -1,157 +1,103 @@
+#include <GL/gl.h>
 #include <GL/glu.h>
-#include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
-#include <iostream>
-#include <climits>
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <math.h>
 
-#include "Planet.h"
-#include "Sun.h"
-#include "Orbits.h"
-#include "SpaceShip.h"
+#define PI 3.141592653589793
 
+#include "Object.h"
 
-const GLint w = 1280, h = 720;
+Object obj;
 
-void initValues()
+void init(void) 
 {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+   GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+   GLfloat mat_shininess[] = { 50.0 };
+   GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+   glClearColor (0.0, 0.0, 0.0, 0.0);
+   glShadeModel (GL_SMOOTH);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+   glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+   glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_LIGHT0);
+   glEnable(GL_DEPTH_TEST);
 
-    const GLfloat params[] = {1.0, 1.0, 1.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, params);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    glViewport(0, 0, w, h);
+   obj.loadFromFile("models/sphere.obj");
 }
 
-void drawCockpit(GLuint texture, glm::vec3 pos){
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    glPushMatrix();
-    glTranslatef(pos.x, pos.y, pos.z);
-    glTranslatef(0, 0, 0);
-    glRotatef(-90, 1, 0, 0); // Calibração para os polos ficarem em cima
-    glTranslatef(0,0,0);
-
-    GLUquadric* quadric = gluNewQuadric();
-    gluQuadricDrawStyle(quadric, GLU_FILL);
-    gluQuadricNormals(quadric, GLU_SMOOTH);
-    gluQuadricTexture(quadric, GL_TRUE);
-    gluSphere(quadric, 50, 200, 200);
-    gluDeleteQuadric(quadric);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_BLEND);
-}
-
-int main(int argc, char **argv)
+void drawSphere(double radius, int latsX, int longsY, float height, float posX)
 {
-    sf::ContextSettings settings;
-    settings.depthBits = 24;
-    settings.stencilBits = 8;
-    settings.antialiasingLevel = 4;
-    settings.majorVersion = 3;
-    settings.minorVersion = 0;
-
-    sf::Window window(sf::VideoMode(w, h), "Trabalho 2 de Computacao Grafica", sf::Style::Default, settings);
-    window.setMouseCursorVisible(false);
-    window.setVerticalSyncEnabled(true);
-    window.setJoystickThreshold(10);
-
-    initValues();
-    float k = 1;
-    float distance = 5;
-
-    std::string texturePath = "textures/cockpit.png";
-    GLuint texture = SOIL_load_OGL_texture(
-            texturePath.c_str(),
-            SOIL_LOAD_RGBA,
-            SOIL_CREATE_NEW_ID,
-            SOIL_FLAG_MULTIPLY_ALPHA | SOIL_FLAG_INVERT_Y);
-
-    if (texture == 0)
+    int i, j;
+    glColor3f(1, 1, 0);
+    for(i = 0; i <= latsX; i++)
     {
-        std::cout << "Erro ao carregar a textura: " << texturePath << "\n"
-                  << SOIL_last_result() << "\n";
-    }
+        double lat0 = PI * (-0.5 + (double) (i - 1) / latsX);
+        double z0  = sin(lat0);
+        double zr0 =  cos(lat0);
 
-    Sun sun(1000, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
+        double lat1 = PI * (-0.5 + (double) i / latsX);
+        double z1 = sin(lat1);
+        double zr1 = cos(lat1);
 
-    Planet mercury(0.011, (2.500*k), 600 * distance, 4.879, "textures/mercury.jpg");
-    Planet venus(0.006, (0.9836*k), 652* distance, 12.104, "textures/venus.jpg");
-    Planet earth(0.1574, (0.6000*k), 693* distance, 12.742, "textures/earth.jpg");
-    Planet mars(0.0866, (0.3157*k), 772* distance, 6.779, "textures/mars.jpg");
-    Planet jupyter(4.5583, (0.0499*k), 1322* distance, 139.820, "textures/jupiter.jpg");
-    Planet saturn(3.6840, (0.0207*k), 1971* distance, 116.460, "textures/saturn.jpg");
-    Planet uranus(1.4794, (0.0071*k), 3413* distance, 50.724, "textures/uranus.jpg");
-    Planet neptune(0.9719, (0.0036*k), 5040* distance, 49.244, "textures/neptune.jpg");
-
-
-    Orbits orbits;
-    orbits.add(mercury.getOrbitValue());
-    orbits.add(venus.getOrbitValue());
-    orbits.add(earth.getOrbitValue());
-    orbits.add(mars.getOrbitValue());
-    orbits.add(jupyter.getOrbitValue());
-    orbits.add(saturn.getOrbitValue());
-    orbits.add(uranus.getOrbitValue());
-    orbits.add(neptune.getOrbitValue());
-
-    SpaceShip ship(glm::vec3(1000, 100, 0.0), Size(w, h));
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
+        glBegin(GL_QUAD_STRIP);
+        for(j = 0; j <= longsY; j++)
         {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
+            double lng = 2 * PI * (double) (j - 1) / longsY;
+            double x = cos(lng);
+            double y = sin(lng);
 
-            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
-            {
-                window.close();
-            }
-
-            if (event.type == sf::Event::Resized)
-            {
-                glViewport(0, 0, event.size.width, event.size.height);
-            }
+            glNormal3f(x * zr0, y * zr0, z0 + height);
+            glVertex3f((radius * x * zr0) + posX, radius * y * zr0, radius * z0 + height);
+            glNormal3f(x * zr1, y * zr1, z1 + height);
+            glVertex3f((radius * x * zr1) + posX, radius * y * zr1, radius * z1 + height);
         }
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        ship.show(window);
-
-        sun.illuminate();
-
-        mercury.show();
-        venus.show();
-        earth.show();
-        mars.show();
-        jupyter.show();
-        saturn.show();
-        uranus.show();
-        neptune.show();
-
-        orbits.show();
-
-        drawCockpit(texture, ship.getCamPosition());
-
-        window.display();
+        glEnd();
     }
+}
 
-    return EXIT_SUCCESS;
+void display(void)
+{
+   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   //drawSphere(1, 40, 40, 1, 0);
+   //glutSolidSphere (1.0, 20, 16);
+
+    obj.show();
+
+   glFlush ();
+}
+
+void reshape (int w, int h)
+{
+   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+   glMatrixMode (GL_PROJECTION);
+   glLoadIdentity();
+   if (w <= h)
+      glOrtho (-1.5, 1.5, -1.5*(GLfloat)h/(GLfloat)w,
+         1.5*(GLfloat)h/(GLfloat)w, -10.0, 10.0);
+   else
+      glOrtho (-1.5*(GLfloat)w/(GLfloat)h,
+         1.5*(GLfloat)w/(GLfloat)h, -1.5, 1.5, -10.0, 10.0);
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+}
+
+int main(int argc, char** argv)
+{
+    
+    
+
+   glutInit(&argc, argv);
+   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+   glutInitWindowSize (500, 500); 
+   glutInitWindowPosition (100, 100);
+   glutCreateWindow (argv[0]);
+   init ();
+   glutDisplayFunc(display); 
+   glutReshapeFunc(reshape);
+   glutMainLoop();
+   return 0;
 }

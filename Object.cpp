@@ -127,7 +127,7 @@ void Object::show()
 
     for (unsigned i = 0; i < faces.size(); i++)
     {
-        if(i%100000==0)
+        //if(i%100000==0)
         glColor3b(rand() % 255, rand() % 255, rand() % 255);
 
         glBegin(GL_TRIANGLES);
