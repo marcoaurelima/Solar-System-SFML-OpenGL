@@ -122,27 +122,69 @@ void Object::showOBJValues()
     }
 }
 
+void Object::loadTextureFile(std::string filename)
+{
+    // Fazer leitura da textura
+    texture = SOIL_load_OGL_texture(
+        filename.c_str(),
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y);
+
+    if (texture == 0)
+    {
+        std::cout << "Erro ao carregar a textura: " << filename << "\n"
+                  << SOIL_last_result() << "\n";
+    }
+}
+
 void Object::show()
 {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_DEPTH_TEST);
 
     for (unsigned i = 0; i < faces.size(); i++)
     {
-        //if(i%100000==0)
-        glColor3b(rand() % 255, rand() % 255, rand() % 255);
+        // if(i%100000==0)
+        // glColor3b(rand() % 255, rand() % 255, rand() % 255);
+
+        glColor3f(1, 1, 1);
 
         glBegin(GL_TRIANGLES);
         for (unsigned j = 0; j < faces[i].size(); j++)
         {
-            unsigned index = faces[i][j].v - 1;
+            GLfloat x, y, z;
+            unsigned index;
 
-            GLfloat x = vertices[index][0];
-            GLfloat y = vertices[index][1];
-            GLfloat z = vertices[index][2];
+            index = faces[i][j].vn - 1;
+            x = normal[index][0];
+            y = normal[index][1];
+            z = normal[index][2];
+            glNormal3f(x, y, z);
 
+            index = faces[i][j].v - 1;
+            x = vertices[index][0];
+            y = vertices[index][1];
+            z = vertices[index][2];
             glVertex3f(x, y, z);
+
+            index = faces[i][j].vt - 1;
+            x = textures[index][0];
+            y = textures[index][1];
+            z = textures[index][2];
+            glTexCoord3f(x, y, z);
         }
+
         glEnd();
     }
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDisable(GL_BLEND);
 
     glFlush();
 }

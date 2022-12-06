@@ -29,6 +29,7 @@ public:
     ~Object();
 
     void loadFromFile(std::string filename);
+    void loadTextureFile(std::string filename);
     void show();
     void showOBJValues();
 
@@ -37,6 +38,7 @@ private:
     Textures textures;
     Normal normal;
     Faces faces;
+    GLuint texture {};
 };
 
 #endif
