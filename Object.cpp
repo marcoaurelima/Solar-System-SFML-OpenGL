@@ -166,17 +166,18 @@ void Object::show()
             z = normal[index][2];
             glNormal3f(x, y, z);
 
+            index = faces[i][j].vt - 1;
+            x = textures[index][0];
+            y = textures[index][1];
+            z = textures[index][2];
+            glTexCoord3f(x, y, z);
+            
             index = faces[i][j].v - 1;
             x = vertices[index][0];
             y = vertices[index][1];
             z = vertices[index][2];
             glVertex3f(x, y, z);
 
-            index = faces[i][j].vt - 1;
-            x = textures[index][0];
-            y = textures[index][1];
-            z = textures[index][2];
-            glTexCoord3f(x, y, z);
         }
 
         glEnd();
