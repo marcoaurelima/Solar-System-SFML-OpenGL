@@ -42,6 +42,7 @@ void init(void)
 
     obj.loadFromFile("models/sphere (1).obj");
     obj.loadTextureFile("textures/earth.jpg");
+    obj.showOBJValues();
 }
 
 

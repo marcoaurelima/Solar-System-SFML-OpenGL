@@ -102,7 +102,7 @@ void Object::showOBJValues()
     std::cout << "\n------------------------------ textures ------------------------------\n";
     for (unsigned int i = 0; i < textures.size(); i++)
     {
-        // std::cout << textures[i][0] << "  " << textures[i][1] << std::endl;
+        std::cout << textures[i][0] << "  " << textures[i][1] << std::endl;
     }
 
     std::cout << "\n------------------------------ normal ------------------------------\n";
@@ -116,9 +116,9 @@ void Object::showOBJValues()
     {
         for (unsigned int j = 0; j < faces[i].size(); j++)
         {
-            // std::cout << faces[i][j].v << " " << faces[i][j].vt << " " << faces[i][j].vn << " ";
+             //std::cout << faces[i][j].v << " " << faces[i][j].vt << " " << faces[i][j].vn << " ";
         }
-        // std::cout << std::endl;
+         //std::cout << std::endl;
     }
 }
 
@@ -144,16 +144,9 @@ void Object::show()
     glBindTexture(GL_TEXTURE_2D, texture);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDepthMask(GL_FALSE);
-    glDisable(GL_DEPTH_TEST);
 
     for (unsigned i = 0; i < faces.size(); i++)
     {
-        // if(i%100000==0)
-        // glColor3b(rand() % 255, rand() % 255, rand() % 255);
-
-        glColor3f(1, 1, 1);
-
         glBegin(GL_TRIANGLES);
         for (unsigned j = 0; j < faces[i].size(); j++)
         {
@@ -169,8 +162,8 @@ void Object::show()
             index = faces[i][j].vt - 1;
             x = textures[index][0];
             y = textures[index][1];
-            z = textures[index][2];
-            glTexCoord3f(x, y, z);
+            //z = textures[index][2];
+            glTexCoord2f(x, y);
             
             index = faces[i][j].v - 1;
             x = vertices[index][0];
