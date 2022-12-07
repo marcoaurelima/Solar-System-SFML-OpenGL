@@ -140,9 +140,6 @@ void Object::loadTextureFile(std::string filename)
 
 void Object::show()
 {
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
     glEnable(GL_BLEND);

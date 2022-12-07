@@ -53,10 +53,14 @@ int main(int argc, char **argv)
 
     Sun sun(10, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
 
-    Planet mercury(5, 0.1, 20, 4.879, "textures/mercury.jpg");
+    Planet mercury(2, 0.1, 5, 0, "textures/mercury.jpg");
+    Planet venus(2, 0.15, 8, 0, "textures/venus.jpg");
+    Planet earth(2, 0.07, 12, 0, "textures/earth.jpg");
 
     Orbits orbits;
     orbits.add(mercury.getOrbitValue());
+    orbits.add(venus.getOrbitValue());
+    orbits.add(earth.getOrbitValue());
 
     SpaceShip ship(glm::vec3(3, 3, 3), Size(w, h));
 
@@ -86,10 +90,12 @@ int main(int argc, char **argv)
         sun.illuminate();
         
         mercury.show();
+        venus.show();
+        earth.show();
 
-        ship.show(window);
-        // obj.show();
         orbits.show();
+        
+        ship.show(window);
 
         window.display();
     }

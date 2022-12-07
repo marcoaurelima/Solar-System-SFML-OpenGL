@@ -25,7 +25,8 @@ void Orbits::show()
         glRotatef(0, 0, -1, 0);
         glRotatef(90, 1, 0, 0);
         glTranslatef(0, 0, 0);
-        gluDisk(quadric, s, s + 1, 600, 600);
+        glColor3f(1, 1, 0);
+        gluDisk(quadric, s, s + 0.04, 600, 600);
         glPopMatrix();
         gluDeleteQuadric(quadric);
     }
