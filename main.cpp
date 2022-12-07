@@ -50,26 +50,10 @@ int main(int argc, char **argv)
     window.setMouseCursorVisible(false);
     window.setVerticalSyncEnabled(true);
 
-    Object obj;
-    obj.loadFromFile("models/esfera.obj");
-    obj.loadTextureFile("textures/earth.jpg");
-
-    /*glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(60.0, w / h, 0.2, INT_MAX);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glm::mat4 matrizCamera = glm::lookAt(glm::vec3{3, 3, 0}, glm::vec3{0, 0, 0}, glm::vec3{0, 1, 0});
-    glMultMatrixf(glm::value_ptr(matrizCamera));*/
 
     Sun sun(10, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
 
-    Planet mercury(0.011, 0.1, 20, 4.879, "textures/mercury.jpg");
+    Planet mercury(5, 0.1, 20, 4.879, "textures/mercury.jpg");
 
     Orbits orbits;
     orbits.add(mercury.getOrbitValue());
