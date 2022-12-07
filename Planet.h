@@ -10,6 +10,8 @@
 
 #define QTD_FACES 200
 
+#include "Object.h"
+
 class Planet
 {
 public:
@@ -29,6 +31,7 @@ private:
 	GLuint texture {};
 
     void createSphere(GLdouble radius);
+    Object obj;
 };
 
 #endif

@@ -39,7 +39,7 @@ private:
     glm::vec3 camAt;
     glm::vec3 camUp = glm::vec3(0, 1, 0);
     Size windowSize;
-    float velocity = 25;
+    float velocity = 1;
 
     float sensibility = 0.1f;
     bool firstMouse = true;

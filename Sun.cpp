@@ -41,4 +41,5 @@ void Sun::illuminate()
     sphere.show();
 
     glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 }

@@ -19,6 +19,9 @@ Planet::Planet(GLfloat rotationVelocity, GLfloat translationVelocity, GLfloat or
         std::cout << "Erro ao carregar a textura: " << texturePath << "\n"
                   << SOIL_last_result() << "\n";
     }
+
+    obj.loadFromFile("models/esfera.obj");
+    obj.loadTextureFile("textures/earth.jpg");
 }
 
 Planet::~Planet()
@@ -46,11 +49,15 @@ void Planet::show()
 
     glBindTexture(GL_TEXTURE_2D, texture);
     glPushMatrix();
+    //glScalef(500,500,500);
     glRotatef(translation, 0, 1, 0);
     glTranslatef(orbitRadius, 0.0, 0);
     glRotatef(rotation, 0, 1, 0);
     glRotatef(-90, 1, 0, 0); // Calibração para os polos ficarem em cima
-    createSphere(size);
+    obj.show();
+    
+    
+    //createSphere(size);
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
