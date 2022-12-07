@@ -28,8 +28,8 @@ void Sun::illuminate()
 
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalLight);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, false);
-    glEnable(GL_LIGHT0);
-    glDisable(GL_LIGHTING);
+    //glEnable(GL_LIGHT0);
+    //glDisable(GL_LIGHTING);
     
     glPushMatrix();
     glLightfv(GL_LIGHT0, GL_POSITION, positionalLight);
@@ -37,8 +37,8 @@ void Sun::illuminate()
     glColor3f(lp.diffuse, lp.diffuse, lp.diffuse);
 
     // Renderizar o sol
-    glScalef(size,size,size);
-    sphere.show();
+    //glScalef(size,size,size);
+    //sphere.show();
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);

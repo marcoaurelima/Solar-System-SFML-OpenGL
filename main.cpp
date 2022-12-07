@@ -16,19 +16,24 @@ const GLint w = 1280, h = 720;
 
 void initValues()
 {
-    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat mat_shininess[] = {100.0};
-    GLfloat light_position[] = {0, 0, 0, 0.0};
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    glShadeModel(GL_SMOOTH);
 
-    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+
+    const GLfloat params[] = {1.0, 1.0, 1.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, params);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glViewport(0, 0, w, h);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
+    
 }
 
 int main(int argc, char **argv)
@@ -62,7 +67,7 @@ int main(int argc, char **argv)
     glm::mat4 matrizCamera = glm::lookAt(glm::vec3{3, 3, 0}, glm::vec3{0, 0, 0}, glm::vec3{0, 1, 0});
     glMultMatrixf(glm::value_ptr(matrizCamera));*/
 
-    //Sun sun(10, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
+    Sun sun(10, LightParameters{1.0, 0.0, 1.0, 0.2}, "textures/sun.jpg");
 
     Planet mercury(0.011, 0.1, 20, 4.879, "textures/mercury.jpg");
 
@@ -94,7 +99,8 @@ int main(int argc, char **argv)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //sun.illuminate();
+        sun.illuminate();
+        
         mercury.show();
 
         ship.show(window);
