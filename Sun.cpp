@@ -36,6 +36,7 @@ void Sun::illuminate()
     glColor3f(lp.diffuse, lp.diffuse, lp.diffuse);
 
     // Renderizar o sol
+    glScalef(size,size,size);
     glTranslatef(0,0,0);
     sphere.show();
 

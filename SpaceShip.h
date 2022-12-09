@@ -11,8 +11,8 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <SOIL/SOIL.h>
-
 #include <SFML/Window.hpp>
+#include "Object.h"
 
 struct Size
 {
@@ -33,13 +33,16 @@ public:
     void moveCameraPosition(sf::Vector2i mousePos);
     void handleKeyboardInput();
     void handleJoystickInput();
+    void drawCockpit(glm::vec3 pos);
     glm::vec3 getCamPosition();
 private:
     glm::vec3 camPosition;
     glm::vec3 camAt;
     glm::vec3 camUp = glm::vec3(0, 1, 0);
     Size windowSize;
+    GLuint textureCockpit;
     float velocity = 1;
+    Object spaceShipObj;
 
     float sensibility = 0.1f;
     bool firstMouse = true;

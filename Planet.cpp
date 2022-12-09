@@ -50,11 +50,12 @@ void Planet::show()
     glBindTexture(GL_TEXTURE_2D, texture);
     glPushMatrix();
     glTranslatef(0,0,0);
-    
-
     glRotatef(translation, 0, 1, 0);
     glTranslatef(orbitRadius, 0.0, 0);
     glRotatef(rotation, 0, 1, 0);
+    glTranslatef(0,0,0);
+    glScalef(size,size,size);
+    glTranslatef(0,0,0);
 
     obj.show();
 
