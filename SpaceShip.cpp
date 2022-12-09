@@ -163,7 +163,7 @@ void SpaceShip::drawCockpit(glm::vec3 pos){
     glPushMatrix();
     glTranslatef(pos.x, pos.y, pos.z);
     glTranslatef(0, 0, 0);
-    glRotatef(-angleX*1.5, 0, 1, 0);
+    glRotatef(45, 0, 1, 0);
     glRotatef(-90, 1, 0, 0); // Calibração para os polos ficarem em cima
     glTranslatef(0,0,0);
 
