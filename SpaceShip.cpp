@@ -118,7 +118,6 @@ void SpaceShip::handleJoystickInput(){
         camAt = glm::normalize(front);
     }
 
-    std::cout << y << std::endl;
     if(y < MIN_TOLERANCE_JOYSTICK_L){
         camPosition += velocity * camAt;
     } else if(y > MAX_TOLERANCE_JOYSTICK_L){
@@ -136,12 +135,12 @@ void SpaceShip::handleJoystickInput(){
 void SpaceShip::moveCameraPosition(sf::Vector2i mousePos) {
     if (sf::Joystick::isConnected(0))
     {
-        this->handleJoystickInput();
         if(sf::Joystick::isButtonPressed(0, 0)){
             this->velocity += 1.5;
         } else if(sf::Joystick::isButtonPressed(0, 1)){
             this->velocity = max(0.01, this->velocity - (this->velocity * 0.5));
         }
+        this->handleJoystickInput();
     } else {
         handleKeyboardInput();
         this->moveCameraView(mousePos);
