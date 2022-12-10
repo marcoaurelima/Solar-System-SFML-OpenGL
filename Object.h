@@ -1,8 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#pragma once
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -31,7 +29,6 @@ public:
     void loadFromFile(std::string filename);
     void loadTextureFile(std::string filename);
     void show();
-    void showOBJValues();
 
 private:
     Vertices vertices;

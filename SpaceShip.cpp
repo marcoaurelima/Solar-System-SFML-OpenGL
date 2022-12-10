@@ -56,7 +56,6 @@ void SpaceShip::moveCameraView(sf::Vector2i mousePos)
     angleX += xOffset;
     angleY += yOffset;
 
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
     if (angleY > 89.0f)
         angleY = 89.0f;
     if (angleY < -89.0f)

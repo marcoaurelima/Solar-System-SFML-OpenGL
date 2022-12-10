@@ -90,38 +90,6 @@ void Object::loadFromFile(std::string filename)
     }
 }
 
-void Object::showOBJValues()
-{
-
-    std::cout << "------------------------------ vertices ------------------------------\n";
-    for (unsigned int i = 0; i < vertices.size(); i++)
-    {
-        // std::cout << vertices[i][0] << "  " << vertices[i][1] << "  " << vertices[i][2] << std::endl;
-    }
-
-    std::cout << "\n------------------------------ textures ------------------------------\n";
-    for (unsigned int i = 0; i < textures.size(); i++)
-    {
-        std::cout << textures[i][0] << "  " << textures[i][1] << std::endl;
-    }
-
-    std::cout << "\n------------------------------ normal ------------------------------\n";
-    for (unsigned int i = 0; i < normal.size(); i++)
-    {
-        // std::cout << normal[i][0] << "  " << normal[i][1] << "  " << normal[i][2] << std::endl;
-    }
-
-    std::cout << "\n------------------------------ faces ------------------------------\n";
-    for (unsigned int i = 0; i < faces.size(); i++)
-    {
-        for (unsigned int j = 0; j < faces[i].size(); j++)
-        {
-             //std::cout << faces[i][j].v << " " << faces[i][j].vt << " " << faces[i][j].vn << " ";
-        }
-         //std::cout << std::endl;
-    }
-}
-
 void Object::loadTextureFile(std::string filename)
 {
     // Fazer leitura da textura
@@ -171,7 +139,6 @@ void Object::show()
             glVertex3f(x, y, z);
 
         }
-
         glEnd();
     }
 

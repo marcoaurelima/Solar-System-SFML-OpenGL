@@ -1,8 +1,6 @@
 #ifndef ORBITS_H
 #define ORBITS_H
 
-#pragma once
-
 #include <vector>
 #include <GL/gl.h>
 #include <GL/glu.h>

@@ -1,8 +1,6 @@
 #ifndef SPACESHIP_H
 #define SPACESHIP_H
 
-#pragma once
-
 #include <iostream>
 #include <vector>
 #include <GL/gl.h>

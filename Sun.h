@@ -1,16 +1,10 @@
 #ifndef SUN_H
 #define SUN_H
 
-#pragma once
-
 #include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "Object.h"
-
-// #include <SOIL/SOIL.h>
-
-// #define QTD_FACES 200
 
 struct LightParameters
 {

@@ -1,8 +1,6 @@
 #ifndef PLANET_H
 #define PLANET_H
 
-#pragma once
-
 #include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
