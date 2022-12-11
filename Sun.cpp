@@ -32,7 +32,6 @@ void Sun::illuminate()
 
     glPushMatrix();
     glLightfv(GL_LIGHT0, GL_POSITION, positionalLight);
-    glTranslatef(positionalLight[0], positionalLight[1], positionalLight[2]);
     glColor3f(lp.diffuse, lp.diffuse, lp.diffuse);
 
     // Renderizar o sol

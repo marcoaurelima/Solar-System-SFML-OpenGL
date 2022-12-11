@@ -33,7 +33,6 @@ void initValues()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
-    
 }
 
 int main(int argc, char **argv)
@@ -52,17 +51,16 @@ int main(int argc, char **argv)
 
     Sun sun(500, LightParameters{35.0, 0.0, 35.0, 0.2}, "textures/sun.jpg");
 
-    float k = 1;
-    float distance = 7;
+    const float offset = 7;
 
-    Planet mercury(0.011, (0.2500*k), 60.0 * distance, 4.879, "textures/mercury.jpg");
-    Planet venus(0.006, (0.09836*k), 65.2* distance, 12.104, "textures/venus.jpg");
-    Planet earth(0.1574, (0.06000*k), 69.3* distance, 12.742, "textures/earth.jpg");
-    Planet mars(0.0866, (0.03157*k), 77.2* distance, 6.779, "textures/mars.jpg");
-    Planet jupyter(4.5583, (0.0499*k), 132.2* distance, 139.820, "textures/jupiter.jpg");
-    Planet saturn(3.6840, (0.0207*k), 197.1* distance, 116.460, "textures/saturn.jpg");
-    Planet uranus(1.4794, (0.0071*k), 341.3* distance, 50.724, "textures/uranus.jpg");
-    Planet neptune(0.9719, (0.0036*k), 504.0* distance, 49.244, "textures/neptune.jpg");
+    Planet mercury(0.011, 0.2500, (60.0 * offset), 4.879, "textures/mercury.jpg");
+    Planet venus(0.006, 0.09836, (65.2 * offset), 12.104, "textures/venus.jpg");
+    Planet earth(0.1574, 0.06000, (69.3 * offset), 12.742, "textures/earth.jpg");
+    Planet mars(0.0866, 0.03157, (77.2 * offset), 6.779, "textures/mars.jpg");
+    Planet jupyter(4.5583, 0.0499, (132.2 * offset), 139.820, "textures/jupiter.jpg");
+    Planet saturn(3.6840, 0.0207, (197.1 * offset), 116.460, "textures/saturn.jpg");
+    Planet uranus(1.4794, 0.0071, (341.3 * offset), 50.724, "textures/uranus.jpg");
+    Planet neptune(0.9719, 0.0036, (504.0 * offset), 49.244, "textures/neptune.jpg");
 
     Orbits orbits;
     orbits.add(mercury.getOrbitValue());
